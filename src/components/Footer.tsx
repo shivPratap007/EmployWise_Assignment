@@ -8,14 +8,14 @@ export function Footer() {
       </p>
       <div className="flex justify-center space-x-4 mt-2">
         <a
-          href="https://github.com/sp09singhwaghel"
+          href="https://github.com/shivPratap007/EmployWise_Assignment"
           target="_blank"
           rel="noopener noreferrer"
         >
           <Github className="hover:text-gray-400 cursor-pointer" />
         </a>
         <a
-          href="https://linkedin.com/in/sp09singhwaghel"
+          href="https://www.linkedin.com/in/shiv-pratap-singh-waghel-23b925289/"
           target="_blank"
           rel="noopener noreferrer"
         >

@@ -1,5 +1,5 @@
 // src/components/Login.tsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Label } from "@radix-ui/react-label";
@@ -48,6 +48,9 @@ const Login: React.FC = () => {
       setIsLoading(false);
     }
   };
+  useEffect(() => {
+    document.title = "Login";
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

@@ -1,54 +1,53 @@
-# React + TypeScript + Vite
+# EmployWise Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+EmployWise is a user management system that allows administrators to manage user data efficiently. The project provides features for adding, updating, deleting, and searching users in a seamless manner.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- User authentication (Login & Logout)
+- Display a list of users
+- Search users by name or email
+- Add new users
+- Update user details
+- Delete users
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React.js
+- TypeScript
+- Tailwind CSS
+- ShadCN UI
+- Lucide Icons
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Installation
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/shivPratap007/EmployWise_Assignment
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd EmployWise_Assignment
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Usage
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- Open `http://localhost:5173` in your browser.
+- Log in to access the user management dashboard.
+- Use the search bar to find users by name or email.
+- Add, edit, or delete users as needed.
+
+## Author
+
+Made with ❤️ by Shiv Pratap Singh Waghel
+
+- [GitHub](https://github.com/shivPratap007/)
+- [LinkedIn](https://www.linkedin.com/in/shiv-pratap-singh-waghel-23b925289/)

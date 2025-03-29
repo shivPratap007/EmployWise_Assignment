@@ -31,10 +31,13 @@ const UserList: React.FC = () => {
   }, [currentPage]);
 
   const handleLogout = () => {
-    sessionStorage.removeItem("token");
+    sessionStorage.clear();
     toast.success("Logged out successfully");
     navigate("/");
   };
+  useEffect(() => {
+    document.title = "User List";
+  }, []);
 
   const handleEdit = (user: User) => {
     setSelectedUser(user);

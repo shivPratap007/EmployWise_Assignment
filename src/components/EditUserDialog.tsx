@@ -9,6 +9,7 @@ import {
 } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { useEffect } from "react";
 
 export default function EditUserDialog({
   isEditDialogOpen,
@@ -25,6 +26,14 @@ export default function EditUserDialog({
   handleUpdateUser: () => Promise<void>;
   updateLoader: boolean;
 }) {
+  useEffect(() => {
+    if (isEditDialogOpen) {
+      document.title = "Edit User";
+    } else {
+      document.title = "User List";
+    }
+  }, [isEditDialogOpen]);
+
   return (
     <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
       <DialogContent>
