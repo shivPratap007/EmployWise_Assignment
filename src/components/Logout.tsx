@@ -43,7 +43,7 @@ export default function Logout({
   };
 
   return (
-    <div className="flex items-center justify-between p-4 bg-white border-b">
+    <div className="flex rounded-2xl mb-3 items-center justify-between p-4 bg-white border-b">
       <div className="flex-1 max-w-sm">
         <Input
           type="text"
