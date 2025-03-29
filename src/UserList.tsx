@@ -10,6 +10,7 @@ import DisplayUsers from "./components/DisplayUsers";
 import Logout from "./components/Logout";
 import { storeUsersInSession } from "./utils/storeUsers";
 import { fetchUsers } from "./utils/fetchUsers";
+import { BASE_URL } from "./lib/utils";
 
 const UserList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -59,7 +60,7 @@ const UserList: React.FC = () => {
 
     try {
       const response = await axios.put(
-        `https://reqres.in/api/users/${selectedUser.id}`,
+        `${BASE_URL}/users/${selectedUser.id}`,
         editFormData
       );
 
@@ -96,7 +97,7 @@ const UserList: React.FC = () => {
     setDeleteLoader(true);
 
     try {
-      await axios.delete(`https://reqres.in/api/users/${selectedUser.id}`);
+      await axios.delete(`${BASE_URL}/users/${selectedUser.id}`);
 
       // Update local state
       const updatedUsers = users.filter((user) => user.id !== selectedUser.id);

@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { ApiResponse, User } from "../utils/interfaces";
 import { getUsersFromSession } from "../utils/getUsersFromLocal";
 import { storeUsersInSession } from "../utils/storeUsers";
+import { BASE_URL } from "@/lib/utils";
 
 export const fetchUsers = async (
   page: number,
@@ -28,7 +29,7 @@ export const fetchUsers = async (
     }
 
     const response = await axios.get<ApiResponse>(
-      `https://reqres.in/api/users?page=${page}`
+      `${BASE_URL}/users?page=${page}`
     );
     setUsers(response.data.data);
     setTotalPages(response.data.total_pages);

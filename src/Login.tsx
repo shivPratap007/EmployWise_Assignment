@@ -14,6 +14,7 @@ import {
 } from "./components/ui/card";
 import { Input } from "./components/ui/input";
 import { toast } from "sonner";
+import { BASE_URL } from "./lib/utils";
 
 // UI Components
 
@@ -28,7 +29,7 @@ const Login: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("https://reqres.in/api/login", {
+      const response = await axios.post(`${BASE_URL}/login`, {
         email,
         password,
       });
