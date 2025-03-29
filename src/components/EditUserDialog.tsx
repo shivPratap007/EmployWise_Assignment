@@ -16,12 +16,14 @@ export default function EditUserDialog({
   editFormData,
   handleEditFormChange,
   handleUpdateUser,
+  updateLoader,
 }: {
   isEditDialogOpen: boolean;
   setIsEditDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   editFormData: Partial<User>;
   handleEditFormChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleUpdateUser: () => Promise<void>;
+  updateLoader: boolean;
 }) {
   return (
     <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
@@ -76,8 +78,12 @@ export default function EditUserDialog({
           >
             Cancel
           </Button>
-          <Button type="button" onClick={handleUpdateUser}>
-            Save Changes
+          <Button
+            disabled={updateLoader}
+            type="button"
+            onClick={handleUpdateUser}
+          >
+            {updateLoader ? "Updating..." : "Update"}
           </Button>
         </DialogFooter>
       </DialogContent>

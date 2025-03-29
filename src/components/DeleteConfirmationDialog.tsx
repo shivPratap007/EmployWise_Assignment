@@ -15,11 +15,13 @@ export default function DeleteConfirmationDialog({
   setIsDeleteDialogOpen,
   selectedUser,
   handleDeleteUser,
+  deleteLoader,
 }: {
   isDeleteDialogOpen: boolean;
   setIsDeleteDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedUser: User | null;
   handleDeleteUser: () => Promise<void>;
+  deleteLoader: boolean;
 }) {
   return (
     <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
@@ -34,10 +36,13 @@ export default function DeleteConfirmationDialog({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
+            disabled={deleteLoader}
             onClick={handleDeleteUser}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className={`bg-destructive text-destructive-foreground hover:bg-destructive/90 ${
+              deleteLoader ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
           >
-            Delete
+            {deleteLoader ? "Deleting..." : "Delete"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
