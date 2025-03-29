@@ -55,7 +55,7 @@ export default function Logout({
       </div>
       <Button variant="outline" onClick={handleLogout} className="ml-4">
         <LogOut className="mr-2 h-4 w-4" />
-        Logout
+        <span className="hidden md:inline">Logout</span>
       </Button>
     </div>
   );

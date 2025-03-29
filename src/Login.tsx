@@ -91,7 +91,7 @@ const Login: React.FC = () => {
           </form>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-red-500">
             Default credentials are pre-filled for demo purposes
           </p>
         </CardFooter>
