@@ -126,7 +126,7 @@ const UserList: React.FC = () => {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <Logout handleLogout={handleLogout} users={users} setUsers={setUsers} />
+      <Logout handleLogout={handleLogout} users={users} setUsers={setUsers} page={currentPage}/>
 
       <DisplayUsers
         users={users}

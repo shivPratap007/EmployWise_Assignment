@@ -2,16 +2,18 @@ import { LogOut } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { User } from "@/utils/interfaces";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, } from "react";
 
 export default function Logout({
   handleLogout,
   users,
   setUsers,
+  page,
 }: {
   handleLogout: () => void;
   users: User[];
   setUsers: React.Dispatch<React.SetStateAction<User[]>>;
+  page: number;
 }) {
   const originalUsersRef = useRef<User[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,11 +30,15 @@ export default function Logout({
     setSearchTerm(value);
 
     if (!value.trim()) {
-      setUsers(originalUsersRef.current);
+      setUsers([
+        ...JSON.parse(sessionStorage.getItem(`users_page_${page}`) || "[]"),
+      ]);
       return;
     }
 
-    const filteredUsers = originalUsersRef.current.filter(
+    const filteredUsers = [
+      ...JSON.parse(sessionStorage.getItem(`users_page_${page}`) || "[]"),
+    ].filter(
       (user) =>
         user.first_name.toLowerCase().includes(value.toLowerCase()) ||
         user.last_name.toLowerCase().includes(value.toLowerCase()) ||
