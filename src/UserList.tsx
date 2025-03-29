@@ -32,6 +32,7 @@ const UserList: React.FC = () => {
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
+    toast.success("Logged out successfully");
     navigate("/");
   };
 
