@@ -1,15 +1,15 @@
-// src/components/UserList.tsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
-
-import { ApiResponse, User } from "./utils/interfaces";
+import { User } from "./utils/interfaces";
 import DeleteConfirmationDialog from "./components/DeleteConfirmationDialog";
 import EditUserDialog from "./components/EditUserDialog";
 import Pagination from "./components/Pagination";
 import DisplayUsers from "./components/DisplayUsers";
 import Logout from "./components/Logout";
+import { storeUsersInSession } from "./utils/storeUsers";
+import { fetchUsers } from "./utils/fetchUsers";
 
 const UserList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -20,57 +20,13 @@ const UserList: React.FC = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [editFormData, setEditFormData] = useState<Partial<User>>({});
+  const [updateLoader, setUpdateLoader] = useState(false);
+  const [deleteLoader, setDeleteLoader] = useState(false);
 
   const navigate = useNavigate();
 
-  // Function to store users in session storage
-  const storeUsersInSession = (page: number, data: User[]) => {
-    sessionStorage.setItem(`users_page_${page}`, JSON.stringify(data));
-  };
-
-  // Function to get users from session storage
-  const getUsersFromSession = (page: number): User[] | null => {
-    const storedUsers = sessionStorage.getItem(`users_page_${page}`);
-    return storedUsers ? JSON.parse(storedUsers) : null;
-  };
-
-  // Fetch users from API or session storage
-  const fetchUsers = async (page: number) => {
-    setIsLoading(true);
-    try {
-      const token = sessionStorage.getItem("token");
-      if (!token) {
-        navigate("/");
-        toast.error("Session expired. Please log in again.");
-        return;
-      }
-
-      // Check if data exists in session storage
-      const cachedUsers = getUsersFromSession(page);
-      if (cachedUsers) {
-        setUsers(cachedUsers);
-        setIsLoading(false);
-        return;
-      }
-
-      const response = await axios.get<ApiResponse>(
-        `https://reqres.in/api/users?page=${page}`
-      );
-      setUsers(response.data.data);
-      setTotalPages(response.data.total_pages);
-
-      // Store users in session storage
-      storeUsersInSession(page, response.data.data);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-      toast.error("Failed to fetch users. Please try again later.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchUsers(currentPage);
+    fetchUsers(currentPage, setUsers, setTotalPages, setIsLoading, navigate);
   }, [currentPage]);
 
   const handleLogout = () => {
@@ -99,6 +55,8 @@ const UserList: React.FC = () => {
   const handleUpdateUser = async () => {
     if (!selectedUser) return;
 
+    setUpdateLoader(true);
+
     try {
       const response = await axios.put(
         `https://reqres.in/api/users/${selectedUser.id}`,
@@ -123,6 +81,8 @@ const UserList: React.FC = () => {
     } catch (error) {
       console.error("Error updating user:", error);
       toast.error("Failed to update user");
+    } finally {
+      setUpdateLoader(false);
     }
   };
 
@@ -133,6 +93,7 @@ const UserList: React.FC = () => {
 
   const handleDeleteUser = async () => {
     if (!selectedUser) return;
+    setDeleteLoader(true);
 
     try {
       await axios.delete(`https://reqres.in/api/users/${selectedUser.id}`);
@@ -149,6 +110,8 @@ const UserList: React.FC = () => {
     } catch (error) {
       console.error("Error deleting user:", error);
       toast.error("Failed to delete user");
+    } finally {
+      setDeleteLoader(false);
     }
   };
 
@@ -183,6 +146,7 @@ const UserList: React.FC = () => {
         editFormData={editFormData}
         handleEditFormChange={handleEditFormChange}
         handleUpdateUser={handleUpdateUser}
+        updateLoader={updateLoader}
       />
 
       {/* Delete Confirmation Dialog */}
@@ -191,6 +155,7 @@ const UserList: React.FC = () => {
         setIsDeleteDialogOpen={setIsDeleteDialogOpen}
         selectedUser={selectedUser}
         handleDeleteUser={handleDeleteUser}
+        deleteLoader={deleteLoader}
       />
     </div>
   );
